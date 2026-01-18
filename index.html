@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Search for Gaza - Every search helps provide humanitarian aid. 100% of ad revenue goes to vetted Gaza charities.">
+    <meta name="theme-color" content="#1B5E20">
+    <meta property="og:title" content="Ecosia for Gaza - Search Engine for Humanitarian Aid">
+    <meta property="og:description" content="Every search you make helps provide humanitarian aid to Gaza. 100% of ad revenue donated.">
+    <meta property="og:type" content="website">
+    <title>Search for Gaza - Every Search Helps</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1B5E20;
+            --primary-light: #4CAF50;
+            --primary-dark: #0D3A12;
+            --secondary: #FF6B35;
+            --secondary-light: #FF9F6B;
+            --white: #FFFFFF;
+            --black: #000000;
+            --gray: #757575;
+            --light-gray: #E0E0E0;
+            --dark-gray: #424242;
+            --background: #F5F5F5;
+            --success: #4CAF50;
+            --warning: #FFC107;
+            --error: #F44336;
+            --ad-bg: #FFF9E6;
+            --ad-border: #FFE082;
+            --donation-green: #2E7D32;
+            --shadow: 0 2px 8px rgba(0,0,0,0.1);
+            --shadow-lg: 0 4px 16px rgba(0,0,0,0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--background);
+            color: var(--dark-gray);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--primary);
+            padding: 0.75rem 1.5rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+        }
+
+        .nav-logo {
+            color: var(--white);
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-logo span {
+            color: var(--secondary-light);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .nav-link {
+            color: var(--white);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background 0.2s;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: rgba(255,255,255,0.15);
+        }
+
+        /* Main Content */
+        .main {
+            padding-top: 60px;
+            min-height: 100vh;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Search Page */
+        .search-page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 1rem;
+            min-height: calc(100vh - 60px);
+        }
+
+        .search-hero {
+            text-align: center;
+            margin-bottom: 2rem;
+            margin-top: 3rem;
+        }
+
+        .search-hero h1 {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .search-hero h1 span {
+            color: var(--secondary);
+        }
+
+        .search-hero p {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        .search-container {
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        .search-box {
+            display: flex;
+            background: var(--white);
+            border-radius: 30px;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            transition: box-shadow 0.2s;
+        }
+
+        .search-box:focus-within {
+            box-shadow: 0 4px 20px rgba(27, 94, 32, 0.25);
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: none;
+            font-size: 1rem;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .search-button {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-family: inherit;
+        }
+
+        .search-button:hover {
+            background: var(--primary-dark);
+        }
+
+        .stats-row {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 1.25rem 2rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            min-width: 150px;
+        }
+
+        .stat-number {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .how-it-works {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: var(--shadow);
+        }
+
+        .how-it-works h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .step-number {
+            width: 36px;
+            height: 36px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step-text {
+            font-size: 1rem;
+        }
+
+        /* Results Page */
+        .results-page {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        .results-header {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            align-items: center;
+        }
+
+        .results-search-box {
+            flex: 1;
+            display: flex;
+            background: var(--white);
+            border-radius: 25px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .results-search-input {
+            flex: 1;
+            padding: 0.75rem 1.25rem;
+            border: none;
+            font-size: 1rem;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .results-search-btn {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .results-count {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .ad-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .ad-card {
+            background: var(--ad-bg);
+            border: 1px solid var(--ad-border);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .ad-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .ad-label {
+            display: inline-block;
+            background: var(--secondary);
+            color: var(--white);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+        }
+
+        .ad-title {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .ad-url {
+            color: var(--success);
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .ad-description {
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+        }
+
+        .ad-disclaimer {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--donation-green);
+            font-style: italic;
+            margin-top: 0.5rem;
+        }
+
+        .result-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .result-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .result-url {
+            color: var(--success);
+            font-size: 0.85rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .result-title {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-snippet {
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+            line-height: 1.5;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--gray);
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--light-gray);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Transparency Page */
+        .transparency-page {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        .hero-card {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: var(--white);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-card .label {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .hero-card .amount {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 0.5rem 0;
+        }
+
+        .hero-card .subtext {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .section-title {
+            color: var(--primary);
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .revenue-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .revenue-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.25rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .revenue-label {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .revenue-amount {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--donation-green);
+        }
+
+        .charity-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 0.75rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .charity-info h3 {
+            font-size: 1rem;
+            color: var(--dark-gray);
+            margin-bottom: 0.25rem;
+        }
+
+        .charity-info .allocation {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .charity-stats {
+            text-align: right;
+        }
+
+        .charity-stats .total {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--donation-green);
+        }
+
+        .charity-stats .label {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        .trust-card {
+            background: rgba(76, 175, 80, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .trust-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .trust-card p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Impact Page */
+        .impact-page {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        .impact-hero {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: var(--white);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .impact-hero .label {
+            opacity: 0.9;
+        }
+
+        .impact-hero .number {
+            font-size: 4rem;
+            font-weight: 700;
+            margin: 0.5rem 0;
+        }
+
+        .contribution-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .contribution-card .title {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contribution-card .amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--donation-green);
+        }
+
+        .contribution-card .note {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-top: 0.5rem;
+        }
+
+        .impact-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .impact-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(76, 175, 80, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .impact-info .number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .impact-info .label {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .milestone {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .milestone-check {
+            width: 36px;
+            height: 36px;
+            border: 2px solid var(--light-gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .milestone-check.achieved {
+            background: var(--success);
+            border-color: var(--success);
+            color: var(--white);
+        }
+
+        .milestone-info .title {
+            font-weight: 600;
+            color: var(--dark-gray);
+        }
+
+        .milestone-info .desc {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        /* About Page */
+        .about-page {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        .about-hero {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .about-hero h1 {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .about-section {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .about-section h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .about-section p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .about-section ul {
+            padding-left: 1.5rem;
+        }
+
+        .about-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        .privacy-note {
+            background: rgba(76, 175, 80, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .privacy-note h3 {
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-dark);
+            color: var(--white);
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .footer p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: var(--secondary-light);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 640px) {
+            .nav {
+                padding: 0.75rem 1rem;
+            }
+
+            .nav-link {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.8rem;
+            }
+
+            .search-hero h1 {
+                font-size: 2.25rem;
+            }
+
+            .hero-card .amount,
+            .impact-hero .number {
+                font-size: 2.5rem;
+            }
+
+            .stats-row {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .stat-card {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        /* Hide on mobile */
+        @media (max-width: 480px) {
+            .nav-logo span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <a href="#" class="nav-logo" onclick="showPage('search')">
+            Search <span>for Gaza</span>
+        </a>
+        <div class="nav-links">
+            <button class="nav-link active" onclick="showPage('search')" data-page="search">Search</button>
+            <button class="nav-link" onclick="showPage('impact')" data-page="impact">Impact</button>
+            <button class="nav-link" onclick="showPage('transparency')" data-page="transparency">Transparency</button>
+            <button class="nav-link" onclick="showPage('about')" data-page="about">About</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Search Page -->
+        <div id="search-page" class="page search-page active">
+            <div class="search-hero">
+                <h1>Search <span>for Gaza</span></h1>
+                <p>Every search helps provide humanitarian aid</p>
+            </div>
+
+            <div class="search-container">
+                <form class="search-box" onsubmit="performSearch(event)">
+                    <input type="text" class="search-input" id="search-input" placeholder="Search the web..." autocomplete="off">
+                    <button type="submit" class="search-button">Search</button>
+                </form>
+            </div>
+
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-number" id="user-searches">0</div>
+                    <div class="stat-label">Your searches</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">$0.003</div>
+                    <div class="stat-label">Avg. per search</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="user-contribution">$0.00</div>
+                    <div class="stat-label">Your contribution</div>
+                </div>
+            </div>
+
+            <div class="how-it-works">
+                <h2>How it works</h2>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-text">You search the web using our search engine</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-text">We display relevant ads alongside your results</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-text">100% of ad revenue goes to Gaza humanitarian relief</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Page -->
+        <div id="results-page" class="page results-page">
+            <div class="results-header">
+                <form class="results-search-box" onsubmit="performSearch(event)">
+                    <input type="text" class="results-search-input" id="results-search-input" placeholder="Search...">
+                    <button type="submit" class="results-search-btn">Search</button>
+                </form>
+            </div>
+
+            <div id="results-content">
+                <!-- Results will be inserted here -->
+            </div>
+        </div>
+
+        <!-- Transparency Page -->
+        <div id="transparency-page" class="page transparency-page">
+            <div class="hero-card">
+                <div class="label">Total Donated to Gaza</div>
+                <div class="amount" id="total-donated">$47,832.50</div>
+                <div class="subtext">From <span id="total-searches">1,594,417</span> searches worldwide</div>
+            </div>
+
+            <h2 class="section-title">Revenue Overview</h2>
+            <div class="revenue-grid">
+                <div class="revenue-card">
+                    <div class="revenue-label">Today</div>
+                    <div class="revenue-amount">$127.45</div>
+                </div>
+                <div class="revenue-card">
+                    <div class="revenue-label">This Week</div>
+                    <div class="revenue-amount">$892.30</div>
+                </div>
+                <div class="revenue-card">
+                    <div class="revenue-label">This Month</div>
+                    <div class="revenue-amount">$3,847.20</div>
+                </div>
+            </div>
+
+            <h2 class="section-title">Charity Partners</h2>
+            <div class="charity-card">
+                <div class="charity-info">
+                    <h3>Medical Aid for Palestinians</h3>
+                    <div class="allocation">35% allocation</div>
+                </div>
+                <div class="charity-stats">
+                    <div class="total">$16,741.38</div>
+                    <div class="label">received</div>
+                </div>
+            </div>
+            <div class="charity-card">
+                <div class="charity-info">
+                    <h3>Palestine Children's Relief Fund</h3>
+                    <div class="allocation">35% allocation</div>
+                </div>
+                <div class="charity-stats">
+                    <div class="total">$16,741.38</div>
+                    <div class="label">received</div>
+                </div>
+            </div>
+            <div class="charity-card">
+                <div class="charity-info">
+                    <h3>Islamic Relief</h3>
+                    <div class="allocation">30% allocation</div>
+                </div>
+                <div class="charity-stats">
+                    <div class="total">$14,349.75</div>
+                    <div class="label">received</div>
+                </div>
+            </div>
+
+            <div class="trust-card">
+                <h3>Our Commitment</h3>
+                <p>100% of ad revenue share goes directly to vetted humanitarian organizations providing aid in Gaza. We publish monthly transparency reports and upload donation receipts for complete accountability.</p>
+            </div>
+        </div>
+
+        <!-- Impact Page -->
+        <div id="impact-page" class="page impact-page">
+            <div class="impact-hero">
+                <div class="label">Your Total Searches</div>
+                <div class="number" id="impact-searches">0</div>
+                <div class="subtext">Thank you for making a difference!</div>
+            </div>
+
+            <div class="contribution-card">
+                <div class="title">Your Estimated Contribution</div>
+                <div class="amount" id="impact-contribution">$0.00</div>
+                <div class="note">Based on average revenue per search</div>
+            </div>
+
+            <h2 class="section-title">What Your Searches Help Provide</h2>
+            <div class="impact-card">
+                <div class="impact-icon">🍽️</div>
+                <div class="impact-info">
+                    <div class="number" id="meals-provided">0</div>
+                    <div class="label">Meals for families</div>
+                </div>
+            </div>
+            <div class="impact-card">
+                <div class="impact-icon">💧</div>
+                <div class="impact-info">
+                    <div class="number" id="water-liters">0</div>
+                    <div class="label">Liters of clean water</div>
+                </div>
+            </div>
+            <div class="impact-card">
+                <div class="impact-icon">🏥</div>
+                <div class="impact-info">
+                    <div class="number" id="medical-kits">0</div>
+                    <div class="label">Medical supply kits</div>
+                </div>
+            </div>
+
+            <h2 class="section-title" style="margin-top: 1.5rem;">Your Milestones</h2>
+            <div id="milestones-container">
+                <!-- Milestones will be inserted here -->
+            </div>
+        </div>
+
+        <!-- About Page -->
+        <div id="about-page" class="page about-page">
+            <div class="about-hero">
+                <h1>About Search for Gaza</h1>
+                <p>A search engine that donates 100% of ad revenue to humanitarian aid</p>
+            </div>
+
+            <div class="about-section">
+                <h2>Our Mission</h2>
+                <p>Search for Gaza is a humanitarian search engine inspired by Ecosia. Every search you perform generates ad revenue, and we donate 100% of our share to vetted organizations providing critical aid in Gaza.</p>
+                <p>We believe that everyday actions can make a real difference. By simply using our search engine for your daily web searches, you're helping provide food, water, medical supplies, and shelter to those in need.</p>
+            </div>
+
+            <div class="about-section">
+                <h2>How We Select Charity Partners</h2>
+                <p>We carefully vet each organization to ensure your contributions make the maximum impact:</p>
+                <ul>
+                    <li><strong>Legitimacy:</strong> Verified registration and operational history</li>
+                    <li><strong>Transparency:</strong> Published financial statements and annual reports</li>
+                    <li><strong>Efficiency:</strong> Over 80% of funds go directly to programs</li>
+                    <li><strong>Focus:</strong> Direct humanitarian aid to civilians</li>
+                    <li><strong>Compliance:</strong> No presence on any watchlists</li>
+                </ul>
+            </div>
+
+            <div class="about-section privacy-note">
+                <h3>Your Privacy Matters</h3>
+                <p>Unlike other search engines, we don't track you or build advertising profiles:</p>
+                <ul>
+                    <li>We don't store your personal information</li>
+                    <li>We don't track your search history</li>
+                    <li>We don't sell your data to advertisers</li>
+                    <li>We use anonymized analytics only to improve our service</li>
+                </ul>
+            </div>
+
+            <div class="about-section">
+                <h2>Transparency</h2>
+                <p>We publish real-time revenue data and monthly reports showing exactly how much we've donated and to which organizations. Every donation receipt is uploaded for public verification.</p>
+                <p>Visit our <a href="#" onclick="showPage('transparency'); return false;">Transparency Dashboard</a> to see where your searches are making an impact.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Made with ❤️ for humanitarian aid</p>
+        <p style="margin-top: 0.5rem;">Search for Gaza &copy; 2024 | <a href="#" onclick="showPage('about'); return false;">Privacy Policy</a></p>
+    </footer>
+
+    <script>
+        // State
+        let searchCount = parseInt(localStorage.getItem('searchCount') || '0');
+        const AVG_REVENUE_PER_SEARCH = 0.003;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateStats();
+            updateMilestones();
+        });
+
+        // Navigation
+        function showPage(pageName) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // Show selected page
+            document.getElementById(`${pageName}-page`).classList.add('active');
+
+            // Update nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.dataset.page === pageName) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Search functionality
+        function performSearch(event) {
+            event.preventDefault();
+
+            const searchInput = document.getElementById('search-input');
+            const resultsInput = document.getElementById('results-search-input');
+            const query = (searchInput.value || resultsInput.value).trim();
+
+            if (!query) return;
+
+            // Update search inputs
+            searchInput.value = query;
+            resultsInput.value = query;
+
+            // Increment search count
+            searchCount++;
+            localStorage.setItem('searchCount', searchCount.toString());
+            updateStats();
+
+            // Show results page with loading
+            showPage('results');
+            showLoading();
+
+            // Simulate search (in production, this would call your API)
+            setTimeout(() => {
+                displayResults(query);
+            }, 800);
+        }
+
+        function showLoading() {
+            document.getElementById('results-content').innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Searching...</p>
+                </div>
+            `;
+        }
+
+        function displayResults(query) {
+            // Generate mock results based on query
+            const ads = generateAds(query);
+            const results = generateResults(query);
+
+            let html = `<p class="results-count">About ${Math.floor(Math.random() * 10000000 + 1000000).toLocaleString()} results</p>`;
+
+            // Ads section
+            if (ads.length > 0) {
+                html += '<div class="ad-section">';
+                ads.forEach(ad => {
+                    html += `
+                        <div class="ad-card" onclick="window.open('${ad.url}', '_blank')">
+                            <span class="ad-label">Ad</span>
+                            <div class="ad-title">${ad.title}</div>
+                            <div class="ad-url">${ad.displayUrl}</div>
+                            <div class="ad-description">${ad.description}</div>
+                        </div>
+                    `;
+                });
+                html += '<p class="ad-disclaimer">100% of ad revenue goes to Gaza humanitarian aid</p>';
+                html += '</div>';
+            }
+
+            // Organic results
+            results.forEach(result => {
+                html += `
+                    <div class="result-card" onclick="window.open('${result.url}', '_blank')">
+                        <div class="result-url">${result.displayUrl}</div>
+                        <div class="result-title">${result.title}</div>
+                        <div class="result-snippet">${result.snippet}</div>
+                    </div>
+                `;
+            });
+
+            document.getElementById('results-content').innerHTML = html;
+        }
+
+        function generateAds(query) {
+            const adTemplates = [
+                {
+                    title: `Best ${query} Deals - Shop Now & Save`,
+                    displayUrl: 'www.shop-example.com',
+                    url: 'https://example.com',
+                    description: `Find amazing deals on ${query}. Free shipping on orders over $50. Shop our wide selection today!`
+                },
+                {
+                    title: `${query} - Official Site`,
+                    displayUrl: 'www.official-example.com',
+                    url: 'https://example.com',
+                    description: `Discover the latest in ${query}. Quality products, trusted service. Visit us today!`
+                }
+            ];
+
+            // Return 1-2 ads randomly
+            const numAds = Math.random() > 0.3 ? 2 : 1;
+            return adTemplates.slice(0, numAds);
+        }
+
+        function generateResults(query) {
+            const resultTemplates = [
+                {
+                    title: `${query} - Wikipedia`,
+                    displayUrl: 'en.wikipedia.org › wiki',
+                    url: `https://en.wikipedia.org/wiki/${encodeURIComponent(query)}`,
+                    snippet: `${query} is a topic of significant interest. This article covers the history, significance, and modern applications of ${query}. Learn more about...`
+                },
+                {
+                    title: `Understanding ${query}: A Complete Guide`,
+                    displayUrl: 'www.guide-example.com › articles',
+                    url: 'https://example.com',
+                    snippet: `Everything you need to know about ${query}. Our comprehensive guide covers all aspects including tips, best practices, and expert insights.`
+                },
+                {
+                    title: `${query} News - Latest Updates`,
+                    displayUrl: 'news.example.com › topics',
+                    url: 'https://example.com',
+                    snippet: `Get the latest news and updates about ${query}. Breaking stories, analysis, and in-depth coverage from trusted sources.`
+                },
+                {
+                    title: `How to ${query} - Step by Step Tutorial`,
+                    displayUrl: 'www.tutorial-example.com',
+                    url: 'https://example.com',
+                    snippet: `Learn how to ${query} with our easy-to-follow tutorial. Perfect for beginners and experts alike. Includes videos and examples.`
+                },
+                {
+                    title: `${query} Reviews and Ratings`,
+                    displayUrl: 'www.reviews-example.com',
+                    url: 'https://example.com',
+                    snippet: `Read honest reviews about ${query}. Compare options, see ratings, and find the best choice for your needs.`
+                },
+                {
+                    title: `${query} | Definition & Meaning`,
+                    displayUrl: 'dictionary.example.com',
+                    url: 'https://example.com',
+                    snippet: `Definition of ${query}: detailed explanation with examples, pronunciation, and usage in context.`
+                },
+                {
+                    title: `Best ${query} in 2024 - Top Picks`,
+                    displayUrl: 'www.bestpicks-example.com',
+                    url: 'https://example.com',
+                    snippet: `Discover the top ${query} options for 2024. Expert recommendations based on quality, value, and user reviews.`
+                },
+                {
+                    title: `${query} Forum - Discussion Community`,
+                    displayUrl: 'forum.example.com › topics',
+                    url: 'https://example.com',
+                    snippet: `Join the conversation about ${query}. Connect with others, ask questions, and share your knowledge.`
+                }
+            ];
+
+            return resultTemplates;
+        }
+
+        // Update statistics
+        function updateStats() {
+            const contribution = (searchCount * AVG_REVENUE_PER_SEARCH).toFixed(2);
+
+            document.getElementById('user-searches').textContent = searchCount;
+            document.getElementById('user-contribution').textContent = `$${contribution}`;
+            document.getElementById('impact-searches').textContent = searchCount;
+            document.getElementById('impact-contribution').textContent = `$${contribution}`;
+
+            // Calculate impact metrics
+            const mealCost = 2.5;
+            const waterCost = 0.05;
+            const medKitCost = 25;
+
+            const totalContribution = searchCount * AVG_REVENUE_PER_SEARCH;
+            document.getElementById('meals-provided').textContent = Math.floor(totalContribution / mealCost);
+            document.getElementById('water-liters').textContent = Math.floor(totalContribution / waterCost);
+            document.getElementById('medical-kits').textContent = Math.floor(totalContribution / medKitCost);
+        }
+
+        // Update milestones
+        function updateMilestones() {
+            const milestones = [
+                { count: 1, title: 'First Search', desc: 'Welcome to the community!' },
+                { count: 10, title: 'Getting Started', desc: '10 searches completed' },
+                { count: 50, title: 'Making an Impact', desc: '50 searches completed' },
+                { count: 100, title: 'Humanitarian Hero', desc: '100 searches completed' },
+                { count: 500, title: 'Champion of Gaza', desc: '500 searches completed' },
+                { count: 1000, title: 'Legendary Supporter', desc: '1,000 searches completed' }
+            ];
+
+            const container = document.getElementById('milestones-container');
+            container.innerHTML = milestones.map(m => `
+                <div class="milestone">
+                    <div class="milestone-check ${searchCount >= m.count ? 'achieved' : ''}">
+                        ${searchCount >= m.count ? '✓' : ''}
+                    </div>
+                    <div class="milestone-info">
+                        <div class="title">${m.title}</div>
+                        <div class="desc">${m.desc}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Handle browser back/forward
+        window.addEventListener('popstate', () => {
+            const hash = window.location.hash.slice(1) || 'search';
+            showPage(hash);
+        });
+    </script>
+</body>
+</html>
